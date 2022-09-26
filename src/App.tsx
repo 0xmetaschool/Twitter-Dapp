@@ -33,6 +33,7 @@ function App() {
   const [newTweetDescription, setNewTweetDescription] = useState<string | "">(
     ""
   );
+  const refreshTime = APP_CONSTANTS.REACT_APP_REFRESH_TIMER * 1000
   const [torusPlugin, setTorusPlugin] =
     useState<TorusWalletConnectorPlugin | null>(null);
 
