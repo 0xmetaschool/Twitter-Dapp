@@ -23,6 +23,8 @@ function Twitter(props: any) {
             addNewTweet={props.addNewTweet}
             fetchAllTweets={props.fetchAllTweets}
             refresh={props.refresh}
+            username={props.username}
+            profileimage={props.profileimage}
           ></AddTweet>
           <TweetListings
             tweets={props.tweets}

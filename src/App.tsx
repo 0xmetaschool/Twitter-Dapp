@@ -19,6 +19,7 @@ import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TIMEOUT } from "dns";
+import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 
 const clientId = APP_CONSTANTS.CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -29,6 +30,8 @@ function App() {
   );
   const [tweets, setTweets] = useState<Array<any> | null>(null);
   const [comment, setComment] = useState<string | "">("");
+  const [userName, setUserName] = useState<string | "">("");
+  const [profileImage, setProfileImage] = useState<string | "">("");
   const [newTweetName, setNewTweetName] = useState<string | "">("");
   const [newTweetDescription, setNewTweetDescription] = useState<string | "">(
     ""
@@ -99,6 +102,14 @@ function App() {
         if (web3auth.provider) {
           await setProvider(web3auth.provider);
         }
+
+        let user = await web3auth.getUserInfo();
+        if(user.name && user.name !== null &&  user.name !== " " &&  user.name !== "")
+          setUserName(user.name)
+
+        if(user.profileImage && user.profileImage !== null &&  user.profileImage !== " " &&  user.profileImage !== "")
+          setProfileImage(user.profileImage)
+        
         await fetchAllTweets();
       } catch (error) {
         console.error(error);
@@ -160,8 +171,9 @@ function App() {
     const rpc = new RPC(provider);
     try {
       let fetchedTweets = await rpc.getAllTweets();
-      setTweets(fetchedTweets);
-      console.log(fetchedTweets);
+      let tweets = [...fetchedTweets];
+      setTweets(tweets.reverse());
+
     } catch (error) {
       console.log("error in fetching tweets", error);
     }
@@ -363,6 +375,8 @@ function App() {
           handleCommentChange={handleCommentChange}
           addComment={addComment}
           refresh={refresh}
+          username={userName}
+          profileimage={profileImage}
         />
       ) : (
         unloggedInView

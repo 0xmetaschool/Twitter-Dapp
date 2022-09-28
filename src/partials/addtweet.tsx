@@ -5,7 +5,7 @@ function AddTweet(props: any) {
   return (
     <>
       <div className="add-tweet">
-        <img src="images/user.png" alt=""></img>
+        <img src={props.profileimage} alt=""></img>
         <div className="tweet-form">
           <form action="">
             <input
