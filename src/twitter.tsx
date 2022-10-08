@@ -7,7 +7,6 @@ import Trends from "./partials/trends";
 
 function Twitter(props: any) {
   useEffect(() => {
-    console.log("loaded");
     props.fetchAllTweets();
   }, [""]);
   return (
