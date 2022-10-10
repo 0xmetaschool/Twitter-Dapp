@@ -1,6 +1,3 @@
-import React from "react";
-import { FaComment, FaRecycle, FaRetweet, FaThumbsUp } from "react-icons/fa";
-
 function AddTweet(props: any) {
   return (
     <>

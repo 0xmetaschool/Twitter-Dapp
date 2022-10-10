@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Leftbar from "./partials/leftbar";
 import AddTweet from "./partials/addtweet";
 import TweetListings from "./partials/TweetsListings";
@@ -7,7 +7,6 @@ import Trends from "./partials/trends";
 
 function Twitter(props: any) {
   useEffect(() => {
-    console.log("loaded");
     props.fetchAllTweets();
   }, [""]);
   return (

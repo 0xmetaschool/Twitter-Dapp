@@ -18,8 +18,6 @@ import { APP_CONSTANTS } from "./constants";
 import "./App.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { TIMEOUT } from "dns";
-import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 
 const clientId = APP_CONSTANTS.CLIENT_ID; // get from https://dashboard.web3auth.io
 
@@ -101,14 +99,17 @@ function App() {
         await web3auth.init();
         if (web3auth.provider) {
           await setProvider(web3auth.provider);
+
+          let user = await web3auth.getUserInfo();
+          console.log('user ', user)
+          if(user.name && user.name !== null &&  user.name !== " " &&  user.name !== "")
+            setUserName(user.name)
+
+          if(user.profileImage && user.profileImage !== null &&  user.profileImage !== " " &&  user.profileImage !== "")
+            setProfileImage(user.profileImage)
         }
 
-        let user = await web3auth.getUserInfo();
-        if(user.name && user.name !== null &&  user.name !== " " &&  user.name !== "")
-          setUserName(user.name)
-
-        if(user.profileImage && user.profileImage !== null &&  user.profileImage !== " " &&  user.profileImage !== "")
-          setProfileImage(user.profileImage)
+        
         
         await fetchAllTweets();
       } catch (error) {
@@ -142,7 +143,20 @@ function App() {
         },
       }
     );
+    
     setProvider(web3authProvider);
+
+    if(web3authProvider){
+      
+      let user = await web3auth.getUserInfo();
+      
+      if(user.name && user.name !== null &&  user.name !== " " &&  user.name !== "")
+        setUserName(user.name)
+
+      if(user.profileImage && user.profileImage !== null &&  user.profileImage !== " " &&  user.profileImage !== "")
+        setProfileImage(user.profileImage)
+    }
+    
   };
   /*
   const getAccounts = async () => {
